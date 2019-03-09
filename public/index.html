@@ -10,10 +10,12 @@
         <p><h4>Hey Varsha, Welcome to my chat app</h4></p>
         <ol id="messages"></ol>
         <form id="message-form" onsubmit="formSubmit(event)">
-            <lable for="fromDiv"> From</lable>
-            <input name="from" type="text" />
-            <label for="msgDiv">Message</label>
-            <input name="message" type="text" />
+            <table>
+                <tr><td><lable for="fromDiv"> From</lable></td> <td><input name="from" type="text" /><br></td></tr>
+                <tr><td><label for="msgDiv">Message</label></td><td> <input name="message" type="text" /><br></td></tr>
+            </table>
+            
+           
             <input type="submit" value="Submit"/>
         </form>
     </body>
