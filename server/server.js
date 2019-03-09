@@ -28,13 +28,14 @@ io.on('connection', function(socket){
 
     socket.emit('newMessage',generateMessage("Admin","Welcome to chat app"))
 
-    socket.broadcast.emit('newMessage',generateMessage("Admin","New user has joined"))
-    socket.on('createMessage', function(msgObj){
+    socket.broadcast.emit('newMessage',generateMessage("Admin","New user has joined"));
+    
+    socket.on('createMessage', function(msgObj, callback){
         console.log(msgObj);
         io.emit('newMessage',generateMessage(msgObj.from, msgObj.text))
+        callback('Hey message sent from me...');
     })
 })
-
 
 app.use(express.static(publicPath));
 

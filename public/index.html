@@ -2,10 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <script src="./js/lib/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"> </script>
+        <script src="./js/index.js"></script>
     </head>
     <body>
         <p>Welcome to chat app</p>
-        <script src="/socket.io/socket.io.js"> </script>
-        <script src="./js/index.js"></script>
+        <ol id="messages"></ol>
+        <form id="message-form" onsubmit="formSubmit(event)">
+            <lable for="fromDiv"> From</lable>
+            <input name="from" type="text" />
+            <label for="msgDiv">Message</label>
+            <input name="message" type="text" />
+            <input type="submit" value="Submit"/>
+        </form>
     </body>
 </html>
