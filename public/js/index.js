@@ -14,6 +14,11 @@ socket.on('newMessage', function(msgObj){
     console.log("message received", str);
 })
 
+socket.on('newLocationMessage', function(msgObj){
+    var locLink = "<li><span>"+msgObj.from+"</span>&nbsp;&nbsp;&nbsp;<span><a href="+msgObj.url+">my location</a></span></li>"
+    $("#messages").append(locLink);
+})
+
 /*
 socket.emit("createMessage",{
     from:"vishesh",
@@ -31,10 +36,28 @@ socket.emit("createMessage",{
 
 function formSubmit(e){
     e.preventDefault();
+    var messageTxt = $("[name='message']");
     socket.emit("createMessage",{
-        from:$("[name='from']").val(),
-        text:$("[name='message']").val()
+        from:"User",
+        text: messageTxt.val()
     }, function(){
-        console.log("message sent");
+        messageTxt.val("");
+    })
+}
+
+function sendLocation(){
+    $("#sendBtn").attr("disabled","disabled").text("Sending location..");
+    if(!navigator.geolocation){
+        return alert("geolocation not supported by your browser");
+    }
+    navigator.geolocation.getCurrentPosition(function (position){
+        $("#sendBtn").prop("disabled", false).text("Send Location");
+        socket.emit("sendLocation",{
+            latitude:position.coords.latitude,
+            longitude: position.coords.longitude
+        })
+    }, function(){
+        alert("unable to detect position");
+        $("#sendBtn").prop("disabled", false).text("Send Location");
     })
 }

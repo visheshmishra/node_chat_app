@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <script src="./js/lib/jquery.min.js"></script>
-        <script src="/socket.io/socket.io.js"> </script>
-        <script src="./js/index.js"></script>
-    </head>
-    <body>
-        <p><h4>Hey Varsha, Welcome to my chat app</h4></p>
-        <ol id="messages"></ol>
-        <form id="message-form" onsubmit="formSubmit(event)">
-            <table>
-                <tr><td><lable for="fromDiv"> From</lable></td> <td><input name="from" type="text" /><br></td></tr>
-                <tr><td><label for="msgDiv">Message</label></td><td> <input name="message" type="text" /><br></td></tr>
-            </table>
-            
-           
-            <input type="submit" value="Submit"/>
-        </form>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/chat.css">
+    <script src="./js/lib/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"> </script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body class="chat">
+    <div class="chat__sidebar">
+        <h3>People</h3>
+        <div id="user"></div>
+    </div>
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"></ol>
+        <div class="chat__footer">
+                <form id="message-form" onsubmit="formSubmit(event)">
+                        <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
+                        <button>Send</button>
+                    </form>
+                    <button onclick="sendLocation()" id="sendBtn">Send Location</button>
+            </div>
+    </div>
+</body>
+
 </html>
