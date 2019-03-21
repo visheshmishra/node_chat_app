@@ -3,52 +3,31 @@
 
 <head>
     <meta charset="utf-8">
+    <title>Join | ChatApp </title>
+    <meta name="viewport" content="width=device-width, initial-acale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="/css/chat.css">
-    <script src="./js/lib/jquery.min.js"></script>
-    <script src="./js/lib/moment.js"></script>
-    <script src="/socket.io/socket.io.js"> </script>
-    <script src="./js/lib/mustache.js"></script>
-    <script src="./js/index.js"></script>
 </head>
 
-<body class="chat">
-    <div class="chat__sidebar">
-        <h3>People</h3>
-        <div id="user"></div>
-    </div>
-    <div class="chat__main">
-        <ol id="messages" class="chat__messages"></ol>
-        <div class="chat__footer">
-                <form id="message-form" onsubmit="formSubmit(event)">
-                        <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
-                        <button>Send</button>
-                    </form>
-                    <button onclick="sendLocation()" id="sendBtn">Send Location</button>
+<body class="centered-form">
+    <div class="centered-form__form">
+        <form action="/chat.html">
+            <div class="form-field">
+                <h3>Join a Chat</h3>
             </div>
-    </div>
-    <script id="message-template" type="text/template">
-       <li class="message">
-           <div class="message__title">
-            <h4>{{from}}</h4>
-            <span>{{createdAt}}</span>
-           </div>
-           <div class="message__body">
-               <p>{{text}}</p>
-           </div>
-       </li>
-    </script>
+            <div class="form-field">
+                <lable>Display Name</lable>
+                <input type="text" name="name" autofocus>
+            </div>
 
-    <script id="location-template" type="text/template">
-        <li class="message">
-            <div class="message__title">
-             <h4>{{from}}</h4>
-             <span>{{createdAt}}</span>
+            <div class="form-field">
+                <label>Room Name</label>
+                <input type="text" name="room">
             </div>
-            <div class="message__body">
-                <a href="{{url}}" target="_blank">My current location</a>
+            <div class="form-field">
+                <button>Join</button>
             </div>
-        </li>
-     </script>
+        </form>
+    </div>
 </body>
 
 </html>

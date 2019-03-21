@@ -1,11 +1,44 @@
 var socket = io();
 socket.on('connect',function(){
-    console.log("connected to server...........");
+   var params = $.deparam(window.location.search);
+   console.log(params);
+   socket.emit('join', params,function(err){
+       if(err){
+           window.location.href="/";
+           alert(err);
+       }else{
+            console.log("No error");
+       }
+
+   })
 })
 
 socket.on('disconnect',function(){
     console.log("disconnect from server......");
 })
+
+socket.on('updateUserList', function(users){
+    var ol = $('<ol></ol>');
+    users.forEach((user) => {
+        var li = $('<li></li>').text(user);
+        ol.append(li);
+    });
+
+    $("#users").html(ol);
+})
+
+function scrollToBottom(){
+    var messages = $("#messages");
+    var newMessage = messages.children('li:last-child');
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var scrollHeight = messages.prop('scrollHeight');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHeight = newMessage.prev().innerHeight();
+    if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight ){
+        messages.scrollTop(scrollHeight);
+    }
+}
 
 socket.on('newMessage', function(msgObj){
     var template = $("#message-template").html();
@@ -16,12 +49,12 @@ socket.on('newMessage', function(msgObj){
         createdAt:formatedTime
     });
     $("#messages").append(html);
+    scrollToBottom();
 },function(str){
     console.log("message received", str);
 })
 
 socket.on('newLocationMessage', function(msgObj){
-    //var locLink = "<li><span>"+msgObj.from+"</span>&nbsp;&nbsp;&nbsp;<span>"+moment(msgObj.createdAt).format('h:mm:a')+"</span>&nbsp;&nbsp;<span><a href="+msgObj.url+">my location</a></span></li>"
   var template = $("#location-template").html();
     var formatedTime = moment(msgObj.createdAt).format("h:mm:a");
    var html = Mustache.render(template,{
@@ -30,6 +63,7 @@ socket.on('newLocationMessage', function(msgObj){
        createdAt:formatedTime
    })
     $("#messages").append(html);
+    scrollToBottom();
 })
 
 /*
